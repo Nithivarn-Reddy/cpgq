@@ -30,7 +30,7 @@ def user_create(username,first,last,email):
 def import_contacts(l):
     global contacts
     contacts.append(l)
-    return '\t new user added ' + contacts[-1].username + 'length of contacts ' +len(contacts)
+    #return '\t new user added ' + contacts[-1].username + 'length of contacts ' +len(contacts)
 
 @task
 def insert_user(username,first,last,email):

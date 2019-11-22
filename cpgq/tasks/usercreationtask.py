@@ -1,6 +1,8 @@
 from celery.task import task
 from celery import signature, group
+
 contacts=[]
+
 @task
 def user_create(username,first,last,email):
     
@@ -15,3 +17,5 @@ def import_contacts(l):
 def insert_user(username,first,last,email):
     result = (user_create.s(username,first,last,email) | import_contacts.s())
     return result.get()
+
+

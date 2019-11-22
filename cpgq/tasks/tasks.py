@@ -1,6 +1,8 @@
 from celery.task import task
 from celery import signature, group
 
+contacts=[]
+
 @task
 def add(x,y):
     return x + y
@@ -19,8 +21,6 @@ def test_grouping(x,y):
     chain.delay()
     return "Kicked Off tasks"
 
-contacts=[]
-
 @task
 def user_create(username,first,last,email):
     
@@ -29,7 +29,7 @@ def user_create(username,first,last,email):
 @task
 def import_contacts(l):
     global contacts.append(l)
-    return '\t new user added ' + l[-1].username + 'length of contacts ' +len(contacts)
+    return '\t new user added ' + contacts[-1].username + 'length of contacts ' +len(contacts)
 
 @task
 def insert_user(username,first,last,email):

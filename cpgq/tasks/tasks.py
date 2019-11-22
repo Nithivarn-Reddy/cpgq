@@ -1,7 +1,7 @@
 from celery.task import task
 from celery import signature, group
 
-contacts=[]
+contacts=[ ]
 
 @task
 def add(x,y):
@@ -28,11 +28,12 @@ def user_create(username,first,last,email):
 
 @task
 def import_contacts(l):
-    global contacts.append(l)
+    global contacts
+    contacts.append(l)
     return '\t new user added ' + contacts[-1].username + 'length of contacts ' +len(contacts)
 
 @task
 def insert_user(username,first,last,email):
-    result = (user_create.s(username,first,last,email) | import_contacts.s())
+    result = (user_create.s(username,first,last,email) | import_contacts.s()).apply_async()
     return result.get()
 
